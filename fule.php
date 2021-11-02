@@ -165,7 +165,7 @@ height:600px !important;
     <img src="./images/logo.png">
     <nav>
       <div class="menu"><a href="index.php">Employee Admin</a></div>
-      <div class="menu"><a href="attandance.html" >Attandance</a></div>
+      <div class="menu"><a href="attandance.php" >Attandance</a></div>
       <div class="menu"><a href="#" class="active">fuel consumption</a></div>
       <div class="menu"><a href="#">Leave Notice</a></div>
     </nav>
