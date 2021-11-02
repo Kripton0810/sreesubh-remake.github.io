@@ -150,9 +150,9 @@ height:600px !important;
   <header>
     <img src="./images/logo.png">
     <nav>
-      <div class="menu"><a href="#">Employee Admin</a></div>
+      <div class="menu"><a href="index.php">Employee Admin</a></div>
       <div class="menu"><a href="#" class="active">Attandance</a></div>
-      <div class="menu"><a href="./fule.html">fuel consumption</a></div>
+      <div class="menu"><a href="fule.php">fuel consumption</a></div>
       <div class="menu"><a href="#">Leave Notice</a></div>
     </nav>
 
