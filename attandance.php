@@ -66,7 +66,7 @@
         margin: 10px auto;
         padding: 20px 30px;
 
-        height: 100px;
+        height: 150px;
     }
     right
     {
@@ -106,6 +106,11 @@
       font-family: 'Noto Sans', sans-serif;
         font-weight: 600;
     }
+    .form-d .data-list
+    {
+      /* position: relative; */
+      left: -4%;
+    }
     .form-d .data-list input, .dates input
     {
       outline: none;
@@ -142,8 +147,65 @@ width:100% !important;
 height:600px !important;
 
 }
+.log
+{
+  width: 120px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  margin: 10px;
+  border: 1px solid rgb(199, 199, 199);
+  background-color: rgb(0, 255, 85);
+}
+.log:nth-child(2)
+{
+  background-color: rgb(255, 60, 0);
 
-
+}
+.login-page{
+  margin: 0;
+  display: none;
+  padding: 0;
+  width: 95vw;
+  background-color: rgba(0, 0, 0, 0.609);
+  position: absolute;
+  height: 95vh;
+  
+}
+.forms
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  width: 500px;
+  justify-content: space-around;
+  align-items: center;
+}
+.caps
+{
+  font-size: 1.05rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+  text-transform: capitalize;
+  margin: 4px;
+}
+.cross
+{
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 97%;
+  cursor: pointer;
+}
+.forms .data-list input
+{
+  width: 300px;
+  font-size: 1.14rem;
+}
   </style>
 </head>
 <body>
@@ -155,14 +217,66 @@ height:600px !important;
       <div class="menu"><a href="fule.php">fuel consumption</a></div>
       <div class="menu"><a href="#">Leave Notice</a></div>
     </nav>
+    <div class="login-page" id="windo-for-logout">
+      <img src="images/redcross.png" id="close-for-logout"  class="cross">
+      <div class="forms">
+        <div class="data-list">
+          <label for="emp_name_3" class="caps"> Select Employee</label>
+          <input list="emp_name_list" required="" name="emp_name" id="emp_name_3">
+          
+          <datalist id="emp_name_list">
+          </datalist>
+    
+        </div>
+        
+        <div class="take-time">
+          <label class="caps" for="logout-time">Logout time:</label>  <input id="logout-time" type="time">
+        </div>
+        <div class="take-time">
+          <label class="caps" for="logout-time">Logout Date:</label>  <input id="logout-date" type="date">
+        </div>
+        <button class="submit" id="update_logout" onclick="update_logout()">UPDATE LOGOUT</button>
+      </div>
+    </div>
 
+
+
+
+<div class="login-page" id="windo-for-login">
+  <img src="images/redcross.png" id="close-for-login"  class="cross">
+  <div class="forms">
+    <div class="data-list">
+      <label for="emp_name" class="caps"> Select Employee</label>
+      <input list="emp_name_list" required="" name="emp_name" id="emp_name">
+      
+      <datalist id="emp_name_list">
+      </datalist>
+
+    </div>
+    <div class="emp_attandance">
+      <label for="attan" class="caps">Select Attandance</label>
+      <div class="rad_att">
+        <label for="p" class="caps">PRESENT</label><input type="radio" id="p" value="1" name="att">
+        <label for="a" class="caps">ABSENT</label><input type="radio" id="a" value="0" name="att">
+      </div>
+      
+    </div>
+    <div class="take-time">
+      <label class="caps" for="login-time">Login time:</label>  <input id="login-time" type="time">
+    </div>
+    <div class="take-time">
+      <label class="caps" for="login-time">Login Date:</label>  <input id="login-date" type="date">
+    </div>
+    <button class="submit" id="update_login" onclick="update_login()">UPDATE LOGIN</button>
+  </div>
+</div>
   </header>
   <main>
       <left>
           <div class="form-d">
               <div class="data-list">
                 <label for="emp_name">Select Employee</label>
-                <input list="emp_name_list" required="" name="emp_name" id="emp_name">
+                <input list="emp_name_list" required="" name="emp_name_2" id="emp_name_2">
                 
                 <datalist id="emp_name_list">
                 </datalist>
@@ -171,6 +285,7 @@ height:600px !important;
               <div class="dates">
                   <label for="start_date">Start date</label>
                   <input type="date" name="start_date" required="" id="start_date">
+                  <br>
                   <label for="end_date">End date</label>
                   <input type="date" name="end_date" required="" id="end_date">
                   <br>
@@ -179,6 +294,10 @@ height:600px !important;
               </div>
               <div class="sub">
                   <button class="submit" id="submit" onclick="submit()">Submit</button>
+              </div>
+              <div class="update">
+                <button class="login-update log submit" id="but-login" >Login Update</button>
+                <button class="login-update log submit" id="but-logout">Logout Update</button>
               </div>
           </div>
       </left>
@@ -225,11 +344,11 @@ height:600px !important;
 
           var start_date = document.getElementById("start_date").value;
           var end_date = document.getElementById("end_date").value;
-          var emp_name = document.getElementById("emp_name").value;
+          var emp_name = document.getElementById("emp_name_2").value;
           console.log(start_date);
           console.log(end_date);
           var sending={};
-          
+          console.log(emp_name);
           var emp =  emp_name+"";
           var email = emp.split("-----")[0].trim();
           if(expeted=='')
@@ -256,9 +375,11 @@ height:600px !important;
               data:sending,
               success:function(data)
               {
+
                 var str="<tr><th>Date</th><th>Attandance</th><th>Login Time</th><th>Login Location</th><th>Logout Time</th><th>Logout Location</th></tr>";
                 var obj = JSON.parse(data);
                 var i;
+
                 console.log(obj);
                 alert(obj.length);
                 var lab = [];
@@ -316,7 +437,6 @@ height:600px !important;
             
                 }
                };
-               
                 const ctx = document.getElementById('myChart').getContext('2d');
      graph = new Chart(ctx, {
         data: chartdata,
@@ -329,7 +449,6 @@ height:600px !important;
         }
         
     });
-    
                 console.log(lab);    
              var data = document.getElementById("att_tab");
              data.innerHTML=str;
@@ -343,7 +462,120 @@ height:600px !important;
           }
           );          
       }
-  </script>
+      function update_login()
+      {
+        // alert('hello'); login-date
+          var emp_name = document.getElementById("emp_name").value;
+          var email = emp_name.split("-----")[0].trim();
+          var login_date = document.getElementById("login-date").value;
+          var login_time = document.getElementById("login-time").value;
+          var p = document.getElementById("p").checked;
+          var a = document.getElementById("a").checked;
+          var datas = {}
+          var flag = 0;
+          if(p)
+          {
+            flag = 1;
+            datas = {
+              'email':email,
+              'time':login_time,
+              'date':login_date,
+              'status':1
+            }
+          }
+          else if(a)
+          {
+            flag = 1;
+            datas = {
+              'email':email,
+              'time':'00:00:00',
+              'date':login_date,
+              'status':0
+            }
+          }
+          else
+          {
+            datas={}
+            alert('Select peresent or absesnt!!');
+          }
+          if(flag == 1)
+          {
+            $.ajax({
+              method:'post',
+              url:'updatelogin.php',
+              data:datas,
+              
+              success:function(dat){
+                if(dat == 200)
+                {
+                  alert('Update successfully....!!!');
+                  $('#windo-for-login').css('display','none');
+                }
+                else
+                 if (dat==404)
+                 {
+                   alert('Updation fail...');
+                 }
+              },error:function(err)
+              {
+                alert(err);
+              }
+            })
+          }
+
+      }
+      function update_logout()
+      {
+        var emp_name = document.getElementById("emp_name_3").value;
+          var email = emp_name.split("-----")[0].trim();
+          var logout_date = document.getElementById("logout-date").value;
+          var logout_time = document.getElementById("logout-time").value;
+          datas={
+            'email':email,
+            'date':logout_date,
+            'time':logout_time
+          };
+          $.ajax({
+              method:'post',
+              url:'logoutupdate.php',
+              data:datas,
+              
+              success:function(dat){
+                if(dat == 200)
+                {
+                  alert('Update successfully....!!!');
+                  $('#windo-for-logout').css('display','none');
+                }
+                else
+                 if (dat==404)
+                 {
+                   alert('Updation fail...');
+                 }
+              },error:function(err)
+              {
+                alert(err);
+              }
+            })
+      }
+      var closeing = document.getElementById('close-for-login');
+      // closeing.addEventListener('click',close());
+      //but-logout
+      $('#but-logout').click(()=>{
+        $('#windo-for-logout').css('display','block');
+       
+      })
+      //close-for-logout
+      $('#close-for-logout').click(()=>{
+        $('#windo-for-logout').css('display','none');
+      })
+      $('#close-for-login').click(()=>{
+        $('#windo-for-login').css('display','none');
+      })
+      $('#but-login').click(()=>{
+        $('#windo-for-login').css('display','block');
+       
+      })
+      </script>
   <script>
     
   </script>
